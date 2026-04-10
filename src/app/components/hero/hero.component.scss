@@ -1,0 +1,231 @@
+/* ═══════════════════════════════════════════════════════════
+   HERO SECTION — pixel-perfect match to screenshot
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-section {
+  position: relative;
+  background: #ffffff;
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+  padding: 90px 0 70px;
+  overflow: hidden;
+}
+
+/* ── Grid dot background ───────────────────────────────── */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, #d0d8f0 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: .45;
+  pointer-events: none;
+}
+
+/* ── Radial glow blobs ────────────────────────────────── */
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: .18;
+}
+.hero-glow-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #3b82f6, transparent 70%);
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.hero-glow-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #8b5cf6, transparent 70%);
+  bottom: -80px;
+  right: 10%;
+}
+
+/* ── Center column ────────────────────────────────────── */
+.hero-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 1.6rem;
+}
+
+/* ── Badge pill ───────────────────────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  background: rgba(37, 99, 235, .08);
+  border: 1px solid rgba(37, 99, 235, .22);
+  color: #2563eb;
+  padding: .38rem 1.1rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.hero-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+}
+
+/* ── Heading ──────────────────────────────────────────── */
+.hero-h1 {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .2rem;
+  direction: rtl;
+}
+
+.hero-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  line-height: 1.15;
+}
+
+/* Line 1 — dark text + megaphone pill */
+.hero-line-1 {
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-weight: 900;
+  color: #0f172a;
+  gap: .5rem;
+}
+
+/* Line 2 — dark text + blue typed word */
+.hero-line-2 {
+  font-size: clamp(1.8rem, 5vw, 3.6rem);
+  font-weight: 900;
+  color: #0f172a;
+  gap: .35rem;
+}
+
+.hero-word-dark { color: #0f172a; }
+
+/* ── Megaphone pill (inline in heading) ─────────────── */
+.hero-megaphone-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #2563eb;
+  border-radius: 999px;
+  padding: 4px 10px;
+  height: clamp(44px, 6vw, 68px);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, .4);
+  animation: pillFloat 3s ease-in-out infinite;
+}
+
+.hero-megaphone-img {
+  height: 100%;
+  max-height: clamp(36px, 5vw, 56px);
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes pillFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+/* ── Typed word (blue, Line 2) ────────────────────────── */
+.hero-typed-word {
+  color: #2563eb;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 3px solid rgba(37, 99, 235, .35);
+  min-width: 100px;
+}
+
+.dynamic-text-output { }
+
+.typed-cursor {
+  color: #2563eb;
+  animation: blink .75s step-end infinite;
+  margin-right: 1px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── Description ─────────────────────────────────────── */
+.hero-description {
+  font-size: .97rem;
+  color: #64748b;
+  line-height: 1.8;
+  margin: 0;
+  max-width: 520px;
+}
+
+/* ── CTA button ───────────────────────────────────────── */
+.hero-cta-wrap {
+  margin-top: .4rem;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  background: #2563eb;
+  color: #ffffff;
+  padding: .9rem 2.4rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 22px rgba(37, 99, 235, .38);
+  direction: rtl;
+}
+.hero-cta-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, .45);
+}
+
+.hero-cta-arrow {
+  font-size: 1.05rem;
+  transition: transform .2s;
+}
+.hero-cta-btn:hover .hero-cta-arrow {
+  transform: translateX(-4px);
+}
+
+/* ── Partners note ───────────────────────────────────── */
+.hero-partners-note {
+  font-size: .8rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-section { padding: 60px 0 50px; }
+  .hero-line-1 { font-size: clamp(1.6rem, 7vw, 2.6rem); }
+  .hero-line-2 { font-size: clamp(1.4rem, 6.5vw, 2.4rem); }
+  .hero-megaphone-pill { height: 44px; }
+  .hero-cta-btn { padding: .8rem 1.8rem; font-size: .9rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-line-1 { font-size: 1.5rem; }
+  .hero-line-2 { font-size: 1.4rem; }
+  .hero-megaphone-pill { height: 36px; }
+}

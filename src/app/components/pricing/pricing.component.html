@@ -1,0 +1,61 @@
+<div class="page-container">
+
+  <!-- Section header -->
+  <div class="section-header">
+    <span class="eyebrow">الباقات والأسعار</span>
+    <h2>الباقات المناسبة لتلبية احتياجاتك</h2>
+    <p>
+      e-Marketing360 هي نظام تشغيل النمو للشركات الناشئة والشركات الصغيرة والمتوسطة في دول الخليج.
+      اختر الباقة التي تناسب مرحلة نمو عملك.
+    </p>
+  </div>
+
+  <!-- Pricing cards -->
+  <div class="pricing-grid">
+    <div
+      *ngFor="let plan of plans; trackBy: trackByTitle"
+      class="pricing-card"
+      [class.dark-card]="plan.theme === 'dark'"
+      [class.featured]="plan.theme === 'featured'">
+
+      <!-- Headline -->
+      <div>
+        <h4 class="pricing-card-title">{{ plan.title }}</h4>
+        <p class="pricing-card-subtitle">{{ plan.subtitle }}</p>
+      </div>
+
+      <!-- Price -->
+      <div class="pricing-price">
+        <span class="pricing-price-main">{{ plan.price }}</span>
+        <span class="pricing-price-old"><s>{{ plan.originalPrice }}</s></span>
+      </div>
+
+      <!-- Description -->
+      <p class="pricing-desc">{{ plan.description }}</p>
+
+      <!-- Features -->
+      <ul class="pricing-features">
+        <li *ngFor="let f of plan.features; trackBy: trackByText">
+          <i class="fa-solid fa-check"></i>
+          <span>{{ f.text }}</span>
+        </li>
+      </ul>
+
+      <!-- CTA -->
+      <div class="pricing-card-cta">
+        <a
+          [href]="contactEmail"
+          target="_blank"
+          rel="nofollow"
+          class="btn"
+          [class.btn-primary]="plan.theme === 'light'"
+          [class.btn-white]="plan.theme === 'dark' || plan.theme === 'featured'"
+          style="width:100%;justify-content:center;">
+          {{ plan.ctaLabel }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>

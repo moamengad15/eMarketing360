@@ -1,0 +1,7 @@
+<div class="page-container">
+  <div class="partners-strip">
+    <div *ngFor="let logo of logos; trackBy: trackByAlt" class="partner-logo">
+      <img [src]="logo.lightSrc" [alt]="logo.alt" loading="lazy" />
+    </div>
+  </div>
+</div>

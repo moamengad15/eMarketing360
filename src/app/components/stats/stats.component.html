@@ -1,0 +1,52 @@
+<div class="stats-section">
+  <div class="page-container">
+
+    <!-- Header -->
+    <div class="stats-header section-header">
+      <span class="eyebrow">نحو قمة التسويق الإلكتروني</span>
+      <h2>أرقامنا تحكي قصص النجاح والابتكار في عالم التسويق الإلكتروني.</h2>
+    </div>
+
+    <!-- Counter Grid -->
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats; trackBy: trackByLabel" class="stat-card">
+        <div class="stat-icon-wrap">
+          <i [class]="stat.icon"></i>
+        </div>
+        <div class="stat-number">
+          <span class="stat-prefix">{{ stat.prefix }}</span>{{ stat.current }}
+        </div>
+        <h6 class="stat-label">{{ stat.label }}</h6>
+      </div>
+    </div>
+
+    <!-- Company Story -->
+    <div class="company-story">
+      <!-- Image -->
+      <div>
+        <img
+          src="https://graphica-marketing.com/wp-content/uploads/2024/06/banner-03.png"
+          alt="e-Marketing360 رحلة الإبداع الرقمي"
+          class="company-story-img"
+          loading="lazy" />
+      </div>
+
+      <!-- Text -->
+      <div>
+        <p class="company-story-eyebrow">نحول الأفكار الطموحة إلى واقع رقمي ينبض بالحياة</p>
+        <h2>e-Marketing360، رحلة الإبداع الرقمي</h2>
+        <p class="company-story-text">
+          كـ <em><strong>أفضل شركة تسويق الكتروني في السعودية</strong></em> .. نساعد الشركات وروّاد الأعمال في تطوير مشاريعهم بخبرة تتجاوز عشرة سنوات في الأسواق العالمية والعربية، نحن شركاؤك في الابتكار، بحلول تسويقية متطورة تُحدث ثورة في عالم العلامات التجارية.
+        </p>
+
+        <div class="company-mini-stats">
+          <div *ngFor="let cs of companyStats" class="mini-stat">
+            <span class="mini-stat-num">{{ cs.current }}</span>
+            <span class="mini-stat-label">{{ cs.label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

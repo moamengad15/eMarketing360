@@ -1,0 +1,57 @@
+<div class="page-container">
+
+  <div class="section-header">
+    <span class="eyebrow">آراء عملائنا</span>
+    <h2>ماذا يقول عملاؤنا عنا</h2>
+  </div>
+
+  <!-- Tab nav -->
+  <div class="testimonials-tabs-nav">
+    <button
+      *ngFor="let tab of tabs; trackBy: trackById"
+      class="testimonials-tab-btn"
+      [class.active]="activeTabId === tab.id"
+      (click)="selectTab(tab.id)">
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <!-- Active slide -->
+  <div class="testimonial-card">
+    <div class="testimonial-stars">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+    </div>
+    <h5 class="testimonial-headline">{{ activeTestimonial.headline }}</h5>
+    <p class="testimonial-text">{{ activeTestimonial.content }}</p>
+    <div class="testimonial-author">
+      <img [src]="activeTestimonial.avatarUrl" [alt]="activeTestimonial.authorName" class="testimonial-avatar" loading="lazy" />
+      <div>
+        <p class="testimonial-name">{{ activeTestimonial.authorName }}</p>
+        <p class="testimonial-role">{{ activeTestimonial.authorRole }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="testimonial-slider-controls">
+    <button class="slider-arrow-btn" (click)="prevSlide()" aria-label="السابق">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="slider-dots">
+      <button
+        *ngFor="let t of activeTab.testimonials; let i = index"
+        class="slider-dot"
+        [class.active]="i === activeSlideIndex"
+        (click)="activeSlideIndex = i">
+      </button>
+    </div>
+    <button class="slider-arrow-btn" (click)="nextSlide()" aria-label="التالي">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+  </div>
+
+</div>

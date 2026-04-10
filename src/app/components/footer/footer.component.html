@@ -1,0 +1,114 @@
+<footer class="site-footer">
+  <div class="footer-body page-container">
+    <div class="footer-grid">
+
+      <!-- Col 1: Logo image + description + email only -->
+      <div class="footer-col footer-col-brand">
+        <a (click)="navigate('/')" style="cursor:pointer;" aria-label="الرئيسية">
+          <img
+            src="assets/images/logo-emarketing360.png"
+            alt="e-Marketing360 Digital Agency"
+            class="footer-logo-img" />
+        </a>
+        <p class="footer-desc">
+          وكالة تسويق إلكتروني متكاملة تساعد الشركات والمشاريع الصغيرة والكبيرة على النمو والتوسع في السوق الرقمي.
+        </p>
+        <!-- Email only contact -->
+        <a href="mailto:info@e-marketing360.com" class="footer-email-cta">
+          <i class="fa-solid fa-envelope"></i>
+          info&#64;e-marketing360.com
+        </a>
+      </div>
+
+      <!-- Col 2: Offices (email only, no phone) -->
+      <div class="footer-col">
+        <h5 class="footer-col-title">مكاتبنا</h5>
+
+        <div class="footer-office">
+          <div class="footer-office-name">
+            <i class="fa-solid fa-location-dot footer-loc-icon"></i>
+            <strong>المملكة العربية السعودية</strong>
+          </div>
+          <p>طريق الإمام سعود بن فيصل، الملقا، الرياض 13521</p>
+          <a href="mailto:info@e-marketing360.com" class="footer-office-email">
+            info&#64;e-marketing360.com
+          </a>
+        </div>
+
+        <div class="footer-office">
+          <div class="footer-office-name">
+            <i class="fa-solid fa-location-dot footer-loc-icon"></i>
+            <strong>المملكة المتحدة</strong>
+          </div>
+          <p>شارع الشيلتون، كوفنت جاردن WC2H 9JQ، لندن</p>
+          <a href="mailto:info@e-marketing360.com" class="footer-office-email">
+            info&#64;e-marketing360.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 3: Site links using Angular Router -->
+      <div class="footer-col">
+        <h5 class="footer-col-title">الشركة</h5>
+        <ul class="footer-links">
+          <li *ngFor="let item of footerNav; trackBy: trackByLabel">
+            <a class="footer-link" (click)="navigate(item.route, item.fragment)" style="cursor:pointer;">
+              <i class="fa-solid fa-arrow-left footer-link-arrow"></i>
+              {{ item.label }}
+            </a>
+          </li>
+        </ul>
+        <div style="margin-top:1.5rem;">
+          <h5 class="footer-col-title">استفسارات وظيفية</h5>
+          <a href="mailto:hr@e-marketing360.com" class="footer-office-email">
+            hr&#64;e-marketing360.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 4: Recent posts + newsletter -->
+      <div class="footer-col">
+        <h5 class="footer-col-title">آخر المقالات</h5>
+        <div class="footer-recent-posts">
+          <a
+            *ngFor="let post of recentPosts; trackBy: trackByTitle"
+            [href]="post.url"
+            class="footer-post-item"
+            target="_blank"
+            rel="noopener">
+            <img [src]="post.imageUrl" [alt]="post.title" loading="lazy" class="footer-post-img" />
+            <div class="footer-post-text">
+              <span class="footer-post-title">{{ post.title }}</span>
+              <span class="footer-post-date">{{ post.date }}</span>
+            </div>
+          </a>
+        </div>
+
+        <h5 class="footer-col-title" style="margin-top:1.5rem;">النشرة البريدية</h5>
+        <div class="newsletter-form">
+          <input type="email" placeholder="بريدك الإلكتروني" class="newsletter-input" />
+          <button type="button" class="newsletter-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Copyright bar -->
+  <div class="footer-bar">
+    <div class="page-container">
+      <div class="footer-bar-inner">
+        <p class="footer-copy">
+          جميع الحقوق محفوظة {{ currentYear }} &copy; لشركة <strong>e-Marketing360</strong>.
+        </p>
+        <ul class="footer-bar-links">
+          <li><a href="mailto:info@e-marketing360.com">info&#64;e-marketing360.com</a></li>
+          <li><a (click)="navigate('/about')" style="cursor:pointer;">سياسة الخصوصية</a></li>
+          <li><a (click)="navigate('/about')" style="cursor:pointer;">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+<div class="page-container">
+
+  <!-- Intro row -->
+  <div class="services-intro">
+    <div class="services-intro-text">
+      <span class="eyebrow">كل ما يحتاجه مشروعك</span>
+      <h2>نحن معك في كل خطوة من التخطيط وحتى تحقيق المبيعات والأرباح</h2>
+      <p>نساعدك لبناء <strong>علامتك التجارية</strong> من الصفر وتحويل أفكارك لمشروع ناجح بحزمة متكاملة من خدمات التسويق الالكتروني</p>
+    </div>
+    <div>
+      <a [routerLink]="['/services']" class="btn btn-outline">تصفح خدماتنا</a>
+    </div>
+  </div>
+
+  <!-- Services Grid -->
+  <div class="services-grid">
+    <div *ngFor="let service of allServices; trackBy: trackByTitle" class="service-card">
+      <div class="service-icon-wrap">
+        <i [class]="service.icon"></i>
+      </div>
+      <h5 class="service-title">{{ service.title }}</h5>
+      <p class="service-desc">{{ service.description }}</p>
+      <a [routerLink]="[service.ctaUrl]" class="btn btn-sm btn-primary">{{ service.ctaLabel }}</a>
+    </div>
+  </div>
+
+</div>

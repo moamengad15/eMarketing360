@@ -1,0 +1,36 @@
+<div class="page-container">
+
+  <!-- Header row -->
+  <div class="blog-header-row">
+    <div>
+      <span class="eyebrow">مدونتنا</span>
+      <h2 style="margin:0;">آخر المقالات</h2>
+    </div>
+    <a [href]="browseUrl" target="_blank" class="btn btn-outline btn-sm">تصفح المقالات</a>
+  </div>
+
+  <!-- Blog grid -->
+  <div class="blog-grid">
+    <article *ngFor="let post of posts; trackBy: trackById" class="blog-card">
+      <div class="blog-thumb">
+        <a [href]="post.postUrl" target="_blank">
+          <img [src]="post.imageUrl" [srcset]="post.imageSrcset" [alt]="post.title" loading="lazy" />
+        </a>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <time [attr.datetime]="post.dateIso">{{ post.date }}</time>
+          <a [href]="post.categoryUrl" target="_blank">{{ post.category }}</a>
+        </div>
+        <h5 class="blog-post-title">
+          <a [href]="post.postUrl" target="_blank">{{ post.title }}</a>
+        </h5>
+        <p class="blog-excerpt">{{ post.excerpt }}</p>
+        <a [href]="post.postUrl" target="_blank" class="blog-read-more">
+          اقرأ المزيد <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
+    </article>
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+<!-- Navbar (contains offer strip + boxed header) -->
+<app-navbar></app-navbar>
+
+<!-- Scroll-to-top side indicator (non-interactive, decorative) -->
+<div class="side-scroll-bar" aria-hidden="true">
+  <a class="scroll-top-link" (click)="scrollToTop()" style="cursor:pointer;">
+    <span class="scroll-bar-line"></span>
+    <span class="scroll-bar-label">اسحب إلى الأعلى</span>
+  </a>
+</div>
+
+<!-- Router outlet: renders Home / About / Services / etc. pages -->
+<div id="page" class="site">
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</div>

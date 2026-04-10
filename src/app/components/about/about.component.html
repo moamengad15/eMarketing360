@@ -1,0 +1,61 @@
+<!-- About / Why Us Section -->
+<div class="page-container">
+
+  <div class="about-grid">
+    <!-- Left: text content -->
+    <div class="about-content">
+
+      <!-- Video CTA -->
+      <div class="about-video-btn">
+        <button class="about-play-btn" (click)="openVideo()" aria-label="مشاهدة الفيديو">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <span class="about-play-label">لماذا e-Marketing360؟</span>
+      </div>
+
+      <p class="about-eyebrow">أفضل شركة تسويق إلكتروني في السعودية</p>
+
+      <h2 class="about-h2">أفضل شركة تسويق إلكتروني في السعودية</h2>
+
+      <div class="about-eyebrow" style="margin-top:.5rem;">كل ما يحتاجه مشروعك</div>
+      <h3 class="about-h3">نحن معك في كل خطوة من التخطيط وحتى تحقيق المبيعات والأرباح</h3>
+
+      <p class="about-text">
+        نساعدك لبناء <strong>علامتك التجارية</strong> من الصفر وتحويل أفكارك لمشروع ناجح بحزمة متكاملة من خدمات التسويق الالكتروني
+      </p>
+
+      <div style="margin-top:1.5rem;">
+        <a href="#services" class="btn btn-outline btn-sm" onclick="event.preventDefault();document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+          تصفح خدماتنا!
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Banner image -->
+    <div class="about-image-side">
+      <img
+        [src]="bannerImage"
+        alt="أفضل شركة تسويق إلكتروني في السعودية"
+        class="about-img"
+        loading="lazy" />
+    </div>
+  </div>
+
+  <!-- Video popup -->
+  <div class="video-popup-overlay" *ngIf="isVideoOpen" (click)="closeVideo()">
+    <div class="video-popup-close-bar">
+      <button class="video-popup-close" (click)="closeVideo()" aria-label="إغلاق">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="video-popup-frame" (click)="$event.stopPropagation()">
+      <iframe
+        [src]="safeVideoUrl"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        title="لماذا e-Marketing360؟">
+      </iframe>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,70 @@
+/* ════════════════════════════════════════════════════
+   e-Marketing360 — Global Angular Styles
+   Font Awesome + Bootstrap Icons via angular.json
+   ════════════════════════════════════════════════════ */
+
+body {
+  font-family: "Cairo", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* All section host elements are block-level */
+app-hero, app-partners, app-pricing, app-about,
+app-services, app-stats, app-portfolio, app-clients,
+app-testimonials, app-blog, app-cta,
+app-home-page { display: block; }
+
+/* Router outlet has no layout impact */
+router-outlet { display: none; }
+
+/* Smooth direction transition when language switches */
+html {
+  transition: none; /* direction change should be instant */
+}
+
+/* Prevent elementor animation placeholders from showing */
+.elementor-invisible { opacity: 1 !important; transform: none !important; }
+
+img { user-select: none; -webkit-user-drag: none; }
+
+/* Video iframe (about component popup) */
+.video-popup-frame iframe {
+  width: 100%;
+  height: min(460px, 52vw);
+  border: none;
+  display: block;
+}
+
+/* ── CTA secondary link ─────────────────────────────── */
+.cta-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .2s;
+  &:hover { color: #fff; }
+}
+
+/* ── CTA actions layout ─────────────────────────────── */
+.cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* ── btn-white (used in CTA) ────────────────────────── */
+.btn-white {
+  background: #fff;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+.btn-white:hover { background: #eff6ff; color: #1e40af; }
+
+.cta-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}

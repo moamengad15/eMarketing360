@@ -1,0 +1,13 @@
+<div class="page-container">
+  <div class="section-header">
+    <span class="eyebrow">عملاؤنا</span>
+    <h2>أبرز عملائنا</h2>
+  </div>
+  <div class="clients-grid">
+    <div *ngFor="let col of clients; trackBy: trackByIndex; let i = index">
+      <div *ngFor="let logo of col; trackBy: trackByAlt" class="client-logo">
+        <img [src]="logo.lightSrc" [alt]="logo.alt" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</div>
