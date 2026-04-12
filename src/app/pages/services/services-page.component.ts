@@ -4,9 +4,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-services-page',
   template: `
     <app-page-layout
-      eyebrow="ما نقدمه"
-      title="خدماتنا"
-      subtitle="حلول تسويقية متكاملة تلبي كل احتياجات مشروعك الرقمي">
+      [eyebrow]="'svc.page.eyebrow' | t"
+      [title]="'svc.page.title' | t"
+      [subtitle]="'svc.page.subtitle' | t">
       <app-services></app-services>
     </app-page-layout>
   `,

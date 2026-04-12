@@ -37,6 +37,10 @@ import { SeoPageComponent }            from './pages/services/seo/seo-page.compo
 import { BrandIdentityPageComponent }  from './pages/services/brand-identity/brand-identity-page.component';
 import { SocialMediaPageComponent }    from './pages/services/social-media/social-media-page.component';
 import { PhotographyPageComponent }    from './pages/services/photography/photography-page.component';
+import { ProjectsPageComponent }       from './pages/projects/projects-page.component';
+import { ProjectDetailPageComponent }  from './pages/projects/project-detail-page.component';
+import { BlogPageComponent }           from './pages/blog/blog-page.component';
+import { BlogArticlePageComponent }    from './pages/blog/blog-article-page.component';
 
 // Init translation on app start
 function initTranslation(ts: TranslationService) {
@@ -73,6 +77,10 @@ function initTranslation(ts: TranslationService) {
     BrandIdentityPageComponent,
     SocialMediaPageComponent,
     PhotographyPageComponent,
+    ProjectsPageComponent,
+    ProjectDetailPageComponent,
+    BlogPageComponent,
+    BlogArticlePageComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-seo-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="تحسين محركات البحث (SEO)"
-      subtitle="تصدّر نتائج البحث وجذب عملاء جدد بدون إعلانات مدفوعة">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.seo.title' | t"
+      [subtitle]="'svc.seo.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-magnifying-glass" style="color:#9333ea"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.seo', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.seo', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#9333ea;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeoPageComponent {
-  readonly features = [
-    { title: 'تحليل الكلمات المفتاحية', desc: 'بحث شامل عن الكلمات التي يبحث عنها عملاؤك فعلاً.' },
-    { title: 'تحسين الصفحة On-Page SEO', desc: 'تحسين العناوين والمحتوى والصور وبنية الروابط الداخلية.' },
-    { title: 'بناء الروابط الخارجية', desc: 'اكتساب روابط عالية الجودة من مواقع موثوقة في مجالك.' },
-    { title: 'SEO التقني', desc: 'تحسين سرعة الموقع وملف XML Sitemap و robots.txt وأكثر.' },
-    { title: 'محتوى محسّن للبحث', desc: 'كتابة مقالات ومحتوى موقع مُحسَّن لمحركات البحث.' },
-    { title: 'تقارير شهرية مفصّلة', desc: 'تتبع الترتيب والزيارات العضوية والكلمات المفتاحية شهرياً.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

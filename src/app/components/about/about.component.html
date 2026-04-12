@@ -7,26 +7,24 @@
 
       <!-- Video CTA -->
       <div class="about-video-btn">
-        <button class="about-play-btn" (click)="openVideo()" aria-label="مشاهدة الفيديو">
+        <button class="about-play-btn" (click)="openVideo()" [attr.aria-label]="'about.play' | t">
           <i class="fa-solid fa-play"></i>
         </button>
-        <span class="about-play-label">لماذا e-Marketing360؟</span>
+        <span class="about-play-label">{{ 'about.play' | t }}</span>
       </div>
 
-      <p class="about-eyebrow">أفضل شركة تسويق إلكتروني في السعودية</p>
+      <p class="about-eyebrow">{{ 'about.eyebrow1' | t }}</p>
 
-      <h2 class="about-h2">أفضل شركة تسويق إلكتروني في السعودية</h2>
+      <h2 class="about-h2">{{ 'about.h2' | t }}</h2>
 
-      <div class="about-eyebrow" style="margin-top:.5rem;">كل ما يحتاجه مشروعك</div>
-      <h3 class="about-h3">نحن معك في كل خطوة من التخطيط وحتى تحقيق المبيعات والأرباح</h3>
+      <div class="about-eyebrow" style="margin-top:.5rem;">{{ 'about.eyebrow2' | t }}</div>
+      <h3 class="about-h3">{{ 'about.h3' | t }}</h3>
 
-      <p class="about-text">
-        نساعدك لبناء <strong>علامتك التجارية</strong> من الصفر وتحويل أفكارك لمشروع ناجح بحزمة متكاملة من خدمات التسويق الالكتروني
-      </p>
+      <p class="about-text" [innerHTML]="'about.body' | t"></p>
 
       <div style="margin-top:1.5rem;">
         <a href="#services" class="btn btn-outline btn-sm" onclick="event.preventDefault();document.getElementById('services').scrollIntoView({behavior:'smooth'})">
-          تصفح خدماتنا!
+          {{ 'about.cta' | t }}
         </a>
       </div>
     </div>
@@ -35,7 +33,7 @@
     <div class="about-image-side">
       <img
         [src]="bannerImage"
-        alt="أفضل شركة تسويق إلكتروني في السعودية"
+        [alt]="'about.imgAlt' | t"
         class="about-img"
         loading="lazy" />
     </div>
@@ -44,7 +42,7 @@
   <!-- Video popup -->
   <div class="video-popup-overlay" *ngIf="isVideoOpen" (click)="closeVideo()">
     <div class="video-popup-close-bar">
-      <button class="video-popup-close" (click)="closeVideo()" aria-label="إغلاق">
+      <button class="video-popup-close" (click)="closeVideo()" [attr.aria-label]="'nav.close' | t">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -53,7 +51,7 @@
         [src]="safeVideoUrl"
         allow="autoplay; fullscreen"
         allowfullscreen
-        title="لماذا e-Marketing360؟">
+        [title]="'about.videoTitle' | t">
       </iframe>
     </div>
   </div>

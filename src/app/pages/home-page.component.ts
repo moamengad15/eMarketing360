@@ -31,9 +31,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     <section id="testimonials" class="section-wrapper">
       <app-testimonials></app-testimonials>
     </section>
-    <section id="blog" class="section-wrapper section-alt">
-      <app-blog></app-blog>
-    </section>
     <section id="contact" class="section-wrapper">
       <app-cta></app-cta>
     </section>

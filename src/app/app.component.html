@@ -1,11 +1,12 @@
 <!-- Navbar (contains offer strip + boxed header) -->
+<span style="position:absolute;width:0;height:0;overflow:hidden;clip:rect(0,0,0,0)" aria-hidden="true">{{ ts.lang() }}</span>
 <app-navbar></app-navbar>
 
 <!-- Scroll-to-top side indicator (non-interactive, decorative) -->
 <div class="side-scroll-bar" aria-hidden="true">
   <a class="scroll-top-link" (click)="scrollToTop()" style="cursor:pointer;">
     <span class="scroll-bar-line"></span>
-    <span class="scroll-bar-label">اسحب إلى الأعلى</span>
+    <span class="scroll-bar-label">{{ 'app.scrollTop' | t }}</span>
   </a>
 </div>
 

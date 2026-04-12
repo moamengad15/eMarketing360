@@ -1,8 +1,8 @@
 <div class="page-container">
 
   <div class="section-header">
-    <span class="eyebrow">آراء عملائنا</span>
-    <h2>ماذا يقول عملاؤنا عنا</h2>
+    <span class="eyebrow">{{ 'testimonials.eyebrow' | t }}</span>
+    <h2>{{ 'testimonials.title' | t }}</h2>
   </div>
 
   <!-- Tab nav -->
@@ -12,7 +12,7 @@
       class="testimonials-tab-btn"
       [class.active]="activeTabId === tab.id"
       (click)="selectTab(tab.id)">
-      {{ tab.label }}
+      {{ tab.labelKey | t }}
     </button>
   </div>
 
@@ -25,31 +25,31 @@
       <i class="fa-solid fa-star"></i>
       <i class="fa-solid fa-star"></i>
     </div>
-    <h5 class="testimonial-headline">{{ activeTestimonial.headline }}</h5>
-    <p class="testimonial-text">{{ activeTestimonial.content }}</p>
+    <h5 class="testimonial-headline">{{ k('headline') | t }}</h5>
+    <p class="testimonial-text">{{ k('content') | t }}</p>
     <div class="testimonial-author">
-      <img [src]="activeTestimonial.avatarUrl" [alt]="activeTestimonial.authorName" class="testimonial-avatar" loading="lazy" />
+      <img [src]="avatars[activeTid]" [alt]="k('name') | t" class="testimonial-avatar" loading="lazy" />
       <div>
-        <p class="testimonial-name">{{ activeTestimonial.authorName }}</p>
-        <p class="testimonial-role">{{ activeTestimonial.authorRole }}</p>
+        <p class="testimonial-name">{{ k('name') | t }}</p>
+        <p class="testimonial-role">{{ k('role') | t }}</p>
       </div>
     </div>
   </div>
 
   <!-- Controls -->
   <div class="testimonial-slider-controls">
-    <button class="slider-arrow-btn" (click)="prevSlide()" aria-label="السابق">
+    <button class="slider-arrow-btn" (click)="prevSlide()" [attr.aria-label]="'portfolio.lbPrev' | t">
       <i class="fa-solid fa-chevron-right"></i>
     </button>
     <div class="slider-dots">
       <button
-        *ngFor="let t of activeTab.testimonials; let i = index"
+        *ngFor="let _t of testimonialIds; let i = index"
         class="slider-dot"
         [class.active]="i === activeSlideIndex"
         (click)="activeSlideIndex = i">
       </button>
     </div>
-    <button class="slider-arrow-btn" (click)="nextSlide()" aria-label="التالي">
+    <button class="slider-arrow-btn" (click)="nextSlide()" [attr.aria-label]="'portfolio.lbNext' | t">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
   </div>

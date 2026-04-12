@@ -9,7 +9,7 @@
 <div class="offer-strip">
   <div class="page-container">
     <p class="offer-strip-text">
-      اكتشف خدمات e-Marketing360 — وكالتك الرقمية المتخصصة في بناء حضورك الرقمي باحتراف.
+      {{ 'offer.strip' | t }}
     </p>
   </div>
 </div>
@@ -17,14 +17,14 @@
 <!-- Boxed white header -->
 <header class="site-header" [class.header-sticky]="isSticky">
   <div class="page-container">
-    <nav class="nav-inner" role="navigation" aria-label="القائمة الرئيسية">
+    <nav class="nav-inner" role="navigation" [attr.aria-label]="'nav.menu' | t">
 
       <!-- Hamburger (leftmost in RTL) -->
       <button
         class="nav-hamburger"
         (click)="toggleMenu()"
         [attr.aria-expanded]="isMenuOpen"
-        aria-label="القائمة">
+        [attr.aria-label]="'nav.menu' | t">
         <span [class.open]="isMenuOpen"></span>
         <span [class.open]="isMenuOpen"></span>
         <span [class.open]="isMenuOpen"></span>
@@ -33,7 +33,7 @@
       <!-- Desktop nav links -->
       <ul class="nav-links" role="list">
         <li
-          *ngFor="let link of navLinks; let i = index; trackBy: trackByRoute"
+          *ngFor="let link of navLinks; let i = index; trackBy: trackByLabelKey"
           class="nav-item"
           [class.has-sub]="hasChildren(link)"
           [class.is-active]="isActive(link)">
@@ -42,26 +42,26 @@
             class="nav-link"
             [class.active]="isActive(link)"
             (click)="hasChildren(link)
-              ? toggleSubmenu(link.label)
+              ? toggleSubmenu(link.labelKey)
               : navigate(link.route, link.fragment)">
             <span class="nav-num">0{{ i + 1 }}</span>
-            {{ link.label }}
+            {{ link.labelKey | t }}
             <i *ngIf="hasChildren(link)"
                class="fa-solid fa-chevron-down nav-chevron"
-               [class.rotated]="activeSubmenu === link.label"></i>
+               [class.rotated]="activeSubmenu === link.labelKey"></i>
           </button>
 
           <!-- Dropdown — routerLink children -->
           <ul
-            *ngIf="hasChildren(link) && activeSubmenu === link.label"
+            *ngIf="hasChildren(link) && activeSubmenu === link.labelKey"
             class="nav-dropdown"
             role="menu">
-            <li *ngFor="let child of link.children; trackBy: trackByRoute" role="none">
+            <li *ngFor="let child of link.children; trackBy: trackByChildKey" role="none">
               <button
                 class="nav-dropdown-item"
                 role="menuitem"
                 (click)="navigate(child.route)">
-                {{ child.label }}
+                {{ child.labelKey | t }}
               </button>
             </li>
           </ul>
@@ -74,37 +74,37 @@
 
         <!-- Search (functional) -->
         <div class="nav-search-wrap" [class.open]="isSearchOpen">
-          <button class="nav-icon-btn" (click)="toggleSearch()" aria-label="بحث">
+          <button class="nav-icon-btn" (click)="toggleSearch()" [attr.aria-label]="'nav.search' | t">
             <i class="fa-solid" [class.fa-magnifying-glass]="!isSearchOpen" [class.fa-xmark]="isSearchOpen"></i>
           </button>
           <div class="nav-search-box" *ngIf="isSearchOpen">
             <input
               type="search"
               class="nav-search-input"
-              placeholder="ابحث..."
+              [placeholder]="'nav.searchPlaceholder' | t"
               [(ngModel)]="searchQuery"
               (keyup.enter)="onSearch(searchQuery)"
               autofocus />
-            <button class="nav-search-submit" (click)="onSearch(searchQuery)" aria-label="بحث">
+            <button class="nav-search-submit" (click)="onSearch(searchQuery)" [attr.aria-label]="'nav.search' | t">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
         </div>
 
         <!-- Language toggle (UI-ready for AR/EN) -->
-        <button class="nav-lang-btn" (click)="toggleLang()" [attr.aria-label]="'تبديل اللغة'">
+        <button class="nav-lang-btn" (click)="toggleLang()" [attr.aria-label]="'nav.toggleLang' | t">
           <i class="fa-solid fa-globe" style="font-size:.8rem; margin-left:.3rem;"></i>
           {{ ts.lang() === 'ar' ? 'EN' : 'AR' }}
         </button>
 
         <!-- Profile button (future-ready auth) -->
-        <button class="nav-profile-btn" aria-label="الملف الشخصي">
+        <button class="nav-profile-btn" [attr.aria-label]="'nav.profile' | t">
           <i class="fa-regular fa-user"></i>
-          <span class="nav-profile-label">الحساب</span>
+          <span class="nav-profile-label">{{ 'nav.account' | t }}</span>
         </button>
 
         <!-- Logo (rightmost in RTL) -->
-        <a class="nav-logo" (click)="navigate('/')" style="cursor:pointer;" aria-label="الرئيسية">
+        <a class="nav-logo" (click)="navigate('/')" style="cursor:pointer;" [attr.aria-label]="'nav.homeAria' | t">
           <img
             src="assets/images/logo-emarketing360.png"
             alt="e-Marketing360 Digital Agency"
@@ -123,24 +123,24 @@
       <input
         type="search"
         class="search-overlay-input"
-        placeholder="ابحث في الموقع..."
+        [placeholder]="'nav.searchOverlayPlaceholder' | t"
         [(ngModel)]="searchQuery"
         (keyup.enter)="onSearch(searchQuery)" />
       <button class="search-overlay-btn" (click)="onSearch(searchQuery)">
-        <i class="fa-solid fa-magnifying-glass"></i> بحث
+        <i class="fa-solid fa-magnifying-glass"></i> {{ 'nav.searchSubmit' | t }}
       </button>
     </div>
   </div>
 </div>
 
 <!-- ═══ Full-screen hamburger popup ════════════════════════ -->
-<div class="ham-popup" [class.open]="isMenuOpen" role="dialog" aria-modal="true" aria-label="القائمة">
+<div class="ham-popup" [class.open]="isMenuOpen" role="dialog" aria-modal="true" [attr.aria-label]="'nav.menuFull' | t">
 
   <div class="ham-popup-header page-container">
     <a class="ham-logo" (click)="navigate('/')" style="cursor:pointer;">
       <img src="assets/images/logo-emarketing360.png" alt="e-Marketing360" class="ham-logo-img" />
     </a>
-    <button class="ham-close-btn" (click)="closeMenu()" aria-label="إغلاق">
+    <button class="ham-close-btn" (click)="closeMenu()" [attr.aria-label]="'nav.close' | t">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
@@ -148,26 +148,26 @@
   <div class="ham-popup-body page-container">
 
     <!-- Primary nav links -->
-    <nav class="ham-menu-col" aria-label="القائمة الكاملة">
+    <nav class="ham-menu-col" [attr.aria-label]="'nav.menuFull' | t">
       <ul class="ham-menu-list">
-        <li *ngFor="let link of navLinks; trackBy: trackByRoute">
+        <li *ngFor="let link of navLinks; trackBy: trackByLabelKey">
           <button
             class="ham-menu-link"
             [class.active]="isActive(link)"
             (click)="hasChildren(link)
-              ? toggleSubmenu(link.label)
+              ? toggleSubmenu(link.labelKey)
               : navigate(link.route, link.fragment)">
-            {{ link.label }}
+            {{ link.labelKey | t }}
             <i *ngIf="hasChildren(link)"
                class="fa-solid fa-chevron-down ham-chev"
-               [class.rotated]="activeSubmenu === link.label"></i>
+               [class.rotated]="activeSubmenu === link.labelKey"></i>
           </button>
 
-          <ul *ngIf="hasChildren(link) && activeSubmenu === link.label" class="ham-sub-list">
-            <li *ngFor="let child of link.children; trackBy: trackByRoute">
+          <ul *ngIf="hasChildren(link) && activeSubmenu === link.labelKey" class="ham-sub-list">
+            <li *ngFor="let child of link.children; trackBy: trackByChildKey">
               <button class="ham-sub-link" (click)="navigate(child.route)">
                 <i class="fa-solid fa-arrow-left ham-sub-arrow"></i>
-                {{ child.label }}
+                {{ child.labelKey | t }}
               </button>
             </li>
           </ul>
@@ -178,31 +178,31 @@
     <!-- Office info + contact (email only) -->
     <div class="ham-offices-col">
       <div class="ham-office">
-        <strong>مكتب المملكة العربية السعودية</strong><br>
-        الرياض، المملكة العربية السعودية<br>
-        <a href="mailto:info@e-marketing360.com" class="ham-email-link">info&#64;e-marketing360.com</a>
+        <strong>{{ 'ham.saOffice' | t }}</strong><br>
+        {{ 'ham.saAddr' | t }}<br>
+        <a [href]="mailtoInfo" class="ham-email-link">{{ displayInfoEmail }}</a>
       </div>
       <div class="ham-office">
-        <strong>مكتب المملكة المتحدة</strong><br>
-        شارع الشيلتون، كوفنت جاردن، لندن WC2H 9JQ<br>
-        <a href="mailto:info@e-marketing360.com" class="ham-email-link">info&#64;e-marketing360.com</a>
+        <strong>{{ 'ham.ukOffice' | t }}</strong><br>
+        {{ 'ham.ukAddr' | t }}<br>
+        <a [href]="mailtoInfo" class="ham-email-link">{{ displayInfoEmail }}</a>
       </div>
       <div class="ham-office">
-        <strong>مكتب الولايات المتحدة</strong><br>
-        شارع 651 N، الجناح 201، ديلاوير، 19706 ميدلتاون<br>
-        <a href="mailto:info@e-marketing360.com" class="ham-email-link">info&#64;e-marketing360.com</a>
+        <strong>{{ 'ham.usOffice' | t }}</strong><br>
+        {{ 'ham.usAddr' | t }}<br>
+        <a [href]="mailtoInfo" class="ham-email-link">{{ displayInfoEmail }}</a>
       </div>
 
       <!-- Contact email CTA -->
-      <a href="mailto:info@e-marketing360.com" class="ham-email-cta">
+      <a [href]="mailtoInfo" class="ham-email-cta">
         <i class="fa-solid fa-envelope"></i>
-        info&#64;e-marketing360.com
+        {{ displayInfoEmail }}
       </a>
 
       <!-- Language toggle in menu -->
       <button class="ham-lang-btn" (click)="toggleLang()">
         <i class="fa-solid fa-globe"></i>
-        {{ ts.lang() === 'ar' ? 'Switch to English' : 'التحويل إلى العربية' }}
+        {{ ts.lang() === 'ar' ? ('nav.langSwitchEn' | t) : ('nav.langSwitchAr' | t) }}
       </button>
     </div>
 

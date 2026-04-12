@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-photography-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="خدمات التصوير الإحترافية"
-      subtitle="صور تحكي قصة علامتك وتترك أثراً بالغاً في المشاهد">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.photo.pageTitle' | t"
+      [subtitle]="'svc.photo.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-camera" style="color:#0891b2"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.photo', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.photo', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#0891b2;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhotographyPageComponent {
-  readonly features = [
-    { title: 'تصوير المنتجات', desc: 'صور احترافية تبرز جمال منتجاتك وتزيد معدلات الشراء.' },
-    { title: 'تصوير الأشخاص والفرق', desc: 'لقطات احترافية لفريقك تعزز ثقة العملاء بشركتك.' },
-    { title: 'تصوير الفعاليات', desc: 'توثيق فعالياتك ومؤتمراتك بأعلى جودة احترافية.' },
-    { title: 'فيديو موشن جرافيك', desc: 'فيديوهات تسويقية قصيرة وجذابة لمنصات التواصل.' },
-    { title: 'تصوير المواقع والمباني', desc: 'صور خارجية وداخلية للمكاتب والمنشآت التجارية.' },
-    { title: 'تسليم سريع', desc: 'تسليم الصور المعدّلة والجاهزة خلال 72 ساعة من التصوير.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

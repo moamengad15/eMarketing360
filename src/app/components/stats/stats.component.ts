@@ -13,7 +13,7 @@ export interface StatItem {
   iconStyle: 'contained' | 'outlined';
   prefix: string;
   target: number;
-  label: string;
+  labelKey: string;
   current: number;
 }
 
@@ -27,14 +27,14 @@ export class StatsComponent implements OnInit, AfterViewInit, OnDestroy {
   private hasAnimated = false;
 
   readonly stats: StatItem[] = [
-    { icon: 'fas fa-users', iconStyle: 'contained', prefix: '+', target: 127, label: 'العملاء', current: 0 },
-    { icon: 'bi bi-x-diamond', iconStyle: 'outlined', prefix: '+', target: 155, label: 'المشاريع', current: 0 },
-    { icon: 'far fa-star', iconStyle: 'contained', prefix: '+', target: 15, label: 'سنوات الخبرة', current: 0 },
+    { icon: 'fas fa-users', iconStyle: 'contained', prefix: '+', target: 127, labelKey: 'stats.label.clients', current: 0 },
+    { icon: 'bi bi-x-diamond', iconStyle: 'outlined', prefix: '+', target: 155, labelKey: 'stats.label.projects', current: 0 },
+    { icon: 'far fa-star', iconStyle: 'contained', prefix: '+', target: 15, labelKey: 'stats.label.years', current: 0 },
   ];
 
   readonly companyStats = [
-    { target: 49, label: 'شركاؤنا العالميون', current: 0, prefix: '' },
-    { target: 12, label: 'الدول التي عملنا فيها', current: 0, prefix: ' ' },
+    { target: 49, labelKey: 'stats.mini.partners', current: 0, prefix: '' },
+    { target: 12, labelKey: 'stats.mini.countries', current: 0, prefix: ' ' },
   ];
 
   constructor(
@@ -51,8 +51,8 @@ export class StatsComponent implements OnInit, AfterViewInit, OnDestroy {
   private setupIntersectionObserver(): void {
     if (typeof IntersectionObserver !== 'undefined') {
       this.observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting && !this.hasAnimated) {
               this.hasAnimated = true;
               this.animateCounters();
@@ -73,7 +73,7 @@ export class StatsComponent implements OnInit, AfterViewInit, OnDestroy {
     const steps = 60;
     const interval = duration / steps;
 
-    this.stats.forEach((stat) => {
+    this.stats.forEach(stat => {
       const increment = stat.target / steps;
       let step = 0;
       const timer = setInterval(() => {
@@ -86,7 +86,7 @@ export class StatsComponent implements OnInit, AfterViewInit, OnDestroy {
       }, interval);
     });
 
-    this.companyStats.forEach((stat) => {
+    this.companyStats.forEach(stat => {
       const increment = stat.target / steps;
       let step = 0;
       const timer = setInterval(() => {
@@ -106,7 +106,7 @@ export class StatsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  trackByLabel(_index: number, stat: StatItem): string {
-    return stat.label;
+  trackByLabelKey(_index: number, stat: StatItem): string {
+    return stat.labelKey;
   }
 }

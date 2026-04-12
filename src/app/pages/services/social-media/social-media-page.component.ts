@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-social-media-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="إدارة السوشيال ميديا"
-      subtitle="حضور رقمي قوي ومتسق على كل منصات التواصل الاجتماعي">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.social.title' | t"
+      [subtitle]="'svc.social.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-bullhorn" style="color:#e11d48"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.social', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.social', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#e11d48;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SocialMediaPageComponent {
-  readonly features = [
-    { title: 'استراتيجية محتوى مخصصة', desc: 'خطة محتوى شهرية تناسب جمهورك وتعكس هوية علامتك.' },
-    { title: 'تصميم بصري احترافي', desc: 'تصاميم جذابة لكل منشور ثابت وموشن جرافيك.' },
-    { title: 'إدارة المجتمع Community', desc: 'الرد على التعليقات والرسائل بشكل يومي واحترافي.' },
-    { title: 'الإعلانات المدفوعة', desc: 'حملات إعلانية مستهدفة على Instagram وFacebook وTikTok.' },
-    { title: 'التقارير والتحليلات', desc: 'تقارير شهرية بمؤشرات الأداء الرئيسية KPIs.' },
-    { title: 'التسويق المؤثر', desc: 'ربطك بالمؤثرين المناسبين لجمهورك وميزانيتك.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

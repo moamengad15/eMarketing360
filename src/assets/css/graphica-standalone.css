@@ -394,6 +394,13 @@ html.dark-mode .company-story { background: rgba(72,74,195,.15); }
 .mini-stat-label { font-size: .78rem; color: var(--grey-text); text-align: center; }
 
 /* ── Portfolio ──────────────────────────────────────────── */
+.portfolio-filter-by {
+  font-size: .78rem;
+  color: var(--grey-text);
+  text-align: center;
+  margin: 0 0 .75rem;
+  letter-spacing: .04em;
+}
 .portfolio-filters {
   display: flex;
   flex-wrap: wrap;

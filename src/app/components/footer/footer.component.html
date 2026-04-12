@@ -4,62 +4,62 @@
 
       <!-- Col 1: Logo image + description + email only -->
       <div class="footer-col footer-col-brand">
-        <a (click)="navigate('/')" style="cursor:pointer;" aria-label="الرئيسية">
+        <a (click)="navigate('/')" style="cursor:pointer;" [attr.aria-label]="'nav.homeAria' | t">
           <img
             src="assets/images/logo-emarketing360.png"
             alt="e-Marketing360 Digital Agency"
             class="footer-logo-img" />
         </a>
         <p class="footer-desc">
-          وكالة تسويق إلكتروني متكاملة تساعد الشركات والمشاريع الصغيرة والكبيرة على النمو والتوسع في السوق الرقمي.
+          {{ 'footer.desc' | t }}
         </p>
         <!-- Email only contact -->
         <a href="mailto:info@e-marketing360.com" class="footer-email-cta">
           <i class="fa-solid fa-envelope"></i>
-          info&#64;e-marketing360.com
+          {{ 'footer.email' | t }}
         </a>
       </div>
 
       <!-- Col 2: Offices (email only, no phone) -->
       <div class="footer-col">
-        <h5 class="footer-col-title">مكاتبنا</h5>
+        <h5 class="footer-col-title">{{ 'footer.officesTitle' | t }}</h5>
 
         <div class="footer-office">
           <div class="footer-office-name">
             <i class="fa-solid fa-location-dot footer-loc-icon"></i>
-            <strong>المملكة العربية السعودية</strong>
+            <strong>{{ 'footer.sa' | t }}</strong>
           </div>
-          <p>طريق الإمام سعود بن فيصل، الملقا، الرياض 13521</p>
+          <p>{{ 'footer.saAddr' | t }}</p>
           <a href="mailto:info@e-marketing360.com" class="footer-office-email">
-            info&#64;e-marketing360.com
+            {{ 'footer.email' | t }}
           </a>
         </div>
 
         <div class="footer-office">
           <div class="footer-office-name">
             <i class="fa-solid fa-location-dot footer-loc-icon"></i>
-            <strong>المملكة المتحدة</strong>
+            <strong>{{ 'footer.uk' | t }}</strong>
           </div>
-          <p>شارع الشيلتون، كوفنت جاردن WC2H 9JQ، لندن</p>
+          <p>{{ 'footer.ukAddr' | t }}</p>
           <a href="mailto:info@e-marketing360.com" class="footer-office-email">
-            info&#64;e-marketing360.com
+            {{ 'footer.email' | t }}
           </a>
         </div>
       </div>
 
       <!-- Col 3: Site links using Angular Router -->
       <div class="footer-col">
-        <h5 class="footer-col-title">الشركة</h5>
+        <h5 class="footer-col-title">{{ 'footer.company' | t }}</h5>
         <ul class="footer-links">
-          <li *ngFor="let item of footerNav; trackBy: trackByLabel">
+          <li *ngFor="let item of footerNav; trackBy: trackByNavKey">
             <a class="footer-link" (click)="navigate(item.route, item.fragment)" style="cursor:pointer;">
               <i class="fa-solid fa-arrow-left footer-link-arrow"></i>
-              {{ item.label }}
+              {{ item.labelKey | t }}
             </a>
           </li>
         </ul>
         <div style="margin-top:1.5rem;">
-          <h5 class="footer-col-title">استفسارات وظيفية</h5>
+          <h5 class="footer-col-title">{{ 'footer.careers' | t }}</h5>
           <a href="mailto:hr@e-marketing360.com" class="footer-office-email">
             hr&#64;e-marketing360.com
           </a>
@@ -68,25 +68,25 @@
 
       <!-- Col 4: Recent posts + newsletter -->
       <div class="footer-col">
-        <h5 class="footer-col-title">آخر المقالات</h5>
+        <h5 class="footer-col-title">{{ 'footer.blogCol' | t }}</h5>
         <div class="footer-recent-posts">
           <a
-            *ngFor="let post of recentPosts; trackBy: trackByTitle"
-            [href]="post.url"
+            *ngFor="let post of recentPosts; trackBy: trackByTitleKey"
+            [href]="post.postUrl"
             class="footer-post-item"
             target="_blank"
             rel="noopener">
-            <img [src]="post.imageUrl" [alt]="post.title" loading="lazy" class="footer-post-img" />
+            <img [src]="post.imageUrl" [alt]="post.titleKey | t" loading="lazy" class="footer-post-img" />
             <div class="footer-post-text">
-              <span class="footer-post-title">{{ post.title }}</span>
-              <span class="footer-post-date">{{ post.date }}</span>
+              <span class="footer-post-title">{{ post.titleKey | t }}</span>
+              <span class="footer-post-date">{{ post.dateKey | t }}</span>
             </div>
           </a>
         </div>
 
-        <h5 class="footer-col-title" style="margin-top:1.5rem;">النشرة البريدية</h5>
+        <h5 class="footer-col-title" style="margin-top:1.5rem;">{{ 'footer.newsletter' | t }}</h5>
         <div class="newsletter-form">
-          <input type="email" placeholder="بريدك الإلكتروني" class="newsletter-input" />
+          <input type="email" [placeholder]="'footer.emailPlaceholder' | t" class="newsletter-input" />
           <button type="button" class="newsletter-btn">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
@@ -101,12 +101,12 @@
     <div class="page-container">
       <div class="footer-bar-inner">
         <p class="footer-copy">
-          جميع الحقوق محفوظة {{ currentYear }} &copy; لشركة <strong>e-Marketing360</strong>.
+          {{ 'footer.copy' | t }} {{ currentYear }} &copy; <strong>e-Marketing360</strong>.
         </p>
         <ul class="footer-bar-links">
-          <li><a href="mailto:info@e-marketing360.com">info&#64;e-marketing360.com</a></li>
-          <li><a (click)="navigate('/about')" style="cursor:pointer;">سياسة الخصوصية</a></li>
-          <li><a (click)="navigate('/about')" style="cursor:pointer;">الشروط والأحكام</a></li>
+          <li><a href="mailto:info@e-marketing360.com">{{ 'footer.email' | t }}</a></li>
+          <li><a (click)="navigate('/about')" style="cursor:pointer;">{{ 'footer.privacy' | t }}</a></li>
+          <li><a (click)="navigate('/about')" style="cursor:pointer;">{{ 'footer.terms' | t }}</a></li>
         </ul>
       </div>
     </div>

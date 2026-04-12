@@ -4,35 +4,32 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-why-us-page',
   template: `
     <app-page-layout
-      eyebrow="الميزة التنافسية"
-      title="لماذا e-Marketing360 مناسبة لشركات مرحلة النمو؟"
-      subtitle="نفهم مرحلة نموك ونصمم حلولاً تسويقية تناسبها تماماً">
+      [eyebrow]="'why.page.eyebrow' | t"
+      [title]="'why.page.title' | t"
+      [subtitle]="'why.page.subtitle' | t">
 
       <div class="why-us-content">
 
-        <!-- Value props grid -->
         <div class="why-grid">
-          <div class="why-card" *ngFor="let item of whyItems">
+          <div class="why-card" *ngFor="let item of whyItems; trackBy: trackWhy">
             <div class="why-icon"><i [class]="item.icon"></i></div>
-            <h3 class="why-title">{{ item.title }}</h3>
-            <p class="why-desc">{{ item.desc }}</p>
+            <h3 class="why-title">{{ item.titleKey | t }}</h3>
+            <p class="why-desc">{{ item.descKey | t }}</p>
           </div>
         </div>
 
-        <!-- Stats strip -->
         <div class="why-stats-strip">
-          <div class="why-stat" *ngFor="let s of stats">
+          <div class="why-stat" *ngFor="let s of stats; trackBy: trackStat">
             <span class="why-stat-num">{{ s.value }}</span>
-            <span class="why-stat-label">{{ s.label }}</span>
+            <span class="why-stat-label">{{ s.labelKey | t }}</span>
           </div>
         </div>
 
-        <!-- CTA -->
         <div class="why-cta-block">
-          <h2>جاهز لبدء رحلتك؟</h2>
-          <p>تواصل معنا اليوم واحصل على استشارة مجانية لتطوير مشروعك.</p>
+          <h2>{{ 'why.cta.title' | t }}</h2>
+          <p>{{ 'why.cta.desc' | t }}</p>
           <a href="mailto:info@e-marketing360.com" class="btn btn-primary">
-            تواصل معنا <i class="fa-solid fa-envelope"></i>
+            {{ 'why.cta.btn' | t }} <i class="fa-solid fa-envelope"></i>
           </a>
         </div>
 
@@ -88,18 +85,26 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class WhyUsPageComponent {
   readonly whyItems = [
-    { icon: 'fa-solid fa-rocket', title: 'خبرة +15 عاماً',             desc: 'فريق متمرس بأسواق الخليج والعالم العربي مع سجل حافل من المشاريع الناجحة.' },
-    { icon: 'fa-solid fa-chart-line', title: 'نتائج مقيّسة',            desc: 'نعمل بمنهجية مبنية على البيانات لتضمن لك ROI حقيقي وقابل للقياس.' },
-    { icon: 'fa-solid fa-handshake', title: 'شراكة استراتيجية',         desc: 'لسنا مجرد مزود خدمة — نحن شريكك التسويقي في كل مرحلة من مراحل النمو.' },
-    { icon: 'fa-solid fa-palette', title: 'إبداع بلا حدود',              desc: 'نصنع محتوى ومواد بصرية تتميز وتصنع الفارق في سوق مزدحم بالمنافسين.' },
-    { icon: 'fa-solid fa-globe', title: 'حضور رقمي شامل',               desc: 'من المواقع إلى السوشيال ميديا والسيو — نغطي كل نقاط تواصلك مع عملائك.' },
-    { icon: 'fa-solid fa-headset', title: 'دعم مستمر 24/7',              desc: 'فريقنا دائماً متاح للإجابة على استفساراتك ودعم نموك في أي وقت.' },
+    { icon: 'fa-solid fa-rocket', titleKey: 'why.i1t', descKey: 'why.i1d' },
+    { icon: 'fa-solid fa-chart-line', titleKey: 'why.i2t', descKey: 'why.i2d' },
+    { icon: 'fa-solid fa-handshake', titleKey: 'why.i3t', descKey: 'why.i3d' },
+    { icon: 'fa-solid fa-palette', titleKey: 'why.i4t', descKey: 'why.i4d' },
+    { icon: 'fa-solid fa-globe', titleKey: 'why.i5t', descKey: 'why.i5d' },
+    { icon: 'fa-solid fa-headset', titleKey: 'why.i6t', descKey: 'why.i6d' },
   ];
 
   readonly stats = [
-    { value: '+127', label: 'عميل راضٍ' },
-    { value: '+155', label: 'مشروع منجز' },
-    { value: '+15',  label: 'سنة خبرة' },
-    { value: '+12',  label: 'دولة عملنا فيها' },
+    { value: '+127', labelKey: 'why.s1l' },
+    { value: '+155', labelKey: 'why.s2l' },
+    { value: '+15', labelKey: 'why.s3l' },
+    { value: '+12', labelKey: 'why.s4l' },
   ];
+
+  trackWhy(_: number, w: { titleKey: string }): string {
+    return w.titleKey;
+  }
+
+  trackStat(_: number, s: { labelKey: string }): string {
+    return s.labelKey;
+  }
 }

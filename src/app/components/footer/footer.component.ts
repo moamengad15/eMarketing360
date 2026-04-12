@@ -1,8 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
-export interface FooterPost { title: string; url: string; date: string; imageUrl: string; }
-export interface FooterNav  { label: string; route: string; fragment?: string; }
+export interface FooterPost {
+  titleKey: string;
+  postUrl: string;
+  dateKey: string;
+  imageUrl: string;
+}
+
+export interface FooterNav {
+  labelKey: string;
+  route: string;
+  fragment?: string;
+}
 
 @Component({
   selector: 'app-footer',
@@ -13,26 +23,27 @@ export interface FooterNav  { label: string; route: string; fragment?: string; }
 export class FooterComponent {
   readonly currentYear = new Date().getFullYear();
 
-  // Navigation links — uses Angular Router
   readonly footerNav: FooterNav[] = [
-    { label: 'من نحن',      route: '/about' },
-    { label: 'خدماتنا',     route: '/services' },
-    { label: 'أعمالنا',     route: '/', fragment: 'portfolio' },
-    { label: 'المدونة',     route: '/', fragment: 'blog' },
-    { label: 'تواصل معنا',  route: '/', fragment: 'contact' },
+    { labelKey: 'footer.nav.about', route: '/about' },
+    { labelKey: 'footer.nav.services', route: '/services' },
+    { labelKey: 'footer.nav.portfolio', route: '/projects' },
+    { labelKey: 'footer.nav.blog', route: '/', fragment: 'blog' },
+    { labelKey: 'footer.nav.contact', route: '/', fragment: 'contact' },
   ];
 
   readonly recentPosts: FooterPost[] = [
     {
-      title: 'لماذا أصبح التصوير الفوتوغرافي عنصرًا حاسمًا في نجاح العلامة التجارية؟',
-      url:  'https://graphica-marketing.com/blog/',
-      date: 'يناير 15, 2026',
+      titleKey: 'blog.post1.title',
+      postUrl:
+        'https://graphica-marketing.com/%d9%84%d9%85%d8%a7%d8%b0%d8%a7-%d8%a3%d8%b5%d8%a8%d8%ad-%d8%a7%d9%84%d8%aa%d8%b5%d9%88%d9%8a%d8%b1-%d8%a7%d9%84%d9%81%d9%88%d8%aa%d9%88%d8%ba%d8%b1%d8%a7%d9%81%d9%8a-%d8%b9%d9%86%d8%b5%d8%b1%d9%8b%d8%a7-%d8%ad%d8%a7%d8%b3%d9%85%d9%8b%d8%a7/',
+      dateKey: 'blog.post1.date',
       imageUrl: 'https://graphica-marketing.com/wp-content/uploads/2025/12/10-150x150.jpg',
     },
     {
-      title: 'لماذا لم يعد تطوير الهوية التجارية يعتمد على التصميم فقط؟',
-      url:  'https://graphica-marketing.com/blog/',
-      date: 'ديسمبر 21, 2025',
+      titleKey: 'blog.post2.title',
+      postUrl:
+        'https://graphica-marketing.com/%d9%84%d9%85%d8%a7%d8%b0%d8%a7-%d9%84%d9%85-%d9%8a%d8%b9%d8%af-%d8%aa%d8%b7%d9%88%d9%8a%d8%b1-%d8%a7%d9%84%d9%87%d9%88%d9%8a%d8%a9-%d8%a7%d9%84%d8%aa%d8%ac%d8%a7%d8%b1%d9%8a%d8%a9/',
+      dateKey: 'blog.post2.date',
       imageUrl: 'https://graphica-marketing.com/wp-content/uploads/2025/12/01-150x150.jpg',
     },
   ];
@@ -41,7 +52,7 @@ export class FooterComponent {
 
   navigate(route: string, fragment?: string): void {
     if (route === '/' && fragment) {
-      if (this.router.url === '/') {
+      if (this.router.url.split('#')[0] === '/') {
         setTimeout(() => {
           document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
@@ -57,6 +68,10 @@ export class FooterComponent {
     }
   }
 
-  trackByTitle(_: number, p: FooterPost): string { return p.title; }
-  trackByLabel(_: number, n: FooterNav):  string { return n.label; }
+  trackByTitleKey(_: number, p: FooterPost): string {
+    return p.titleKey;
+  }
+  trackByNavKey(_: number, n: FooterNav): string {
+    return n.labelKey;
+  }
 }

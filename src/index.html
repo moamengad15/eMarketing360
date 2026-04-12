@@ -15,12 +15,12 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
     rel="stylesheet" />
 
-  <!-- Language direction init (AR default, persisted in localStorage) -->
+  <!-- Language: lang follows selection; dir stays rtl so layout matches in both languages -->
   <script>
     (function () {
       var lang = localStorage.getItem('em360-lang') || 'ar';
       document.documentElement.setAttribute('lang', lang);
-      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('dir', 'rtl');
     })();
   </script>
 </head>

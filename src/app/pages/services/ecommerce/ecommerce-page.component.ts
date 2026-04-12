@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-ecommerce-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="تطوير المتاجر الإلكترونية"
-      subtitle="متاجر إلكترونية احترافية على سلة وزد تحقق مبيعات حقيقية">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.ecom.title' | t"
+      [subtitle]="'svc.ecom.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-cart-shopping" style="color:#16a34a"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.ecom', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.ecom', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#16a34a;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EcommercePageComponent {
-  readonly features = [
-    { title: 'تصميم متجر على سلة / زد', desc: 'نبني متجرك على المنصات الأكثر استخداماً في السعودية والخليج.' },
-    { title: 'تجربة شراء سلسة', desc: 'تصميم مسار شراء بسيط يقلل التخلي عن السلة ويزيد التحويلات.' },
-    { title: 'ربط بوابات الدفع', desc: 'دعم كامل لمدى وApple Pay وVisa وSTC Pay وغيرها.' },
-    { title: 'إدارة المخزون', desc: 'نظام متكامل لإدارة المنتجات والمخزون والطلبات.' },
-    { title: 'تقارير المبيعات', desc: 'لوحة تحكم واضحة بتقارير يومية وشهرية لأداء متجرك.' },
-    { title: 'تكامل مع المنصات اللوجستية', desc: 'ربط آلي مع أرامكس وسمسا وغيرها لتتبع الشحنات.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

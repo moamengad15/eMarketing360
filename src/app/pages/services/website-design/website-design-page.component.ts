@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-website-design-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="تصميم وتطوير مواقع إلكترونية"
-      subtitle="مواقع استثنائية سريعة وآمنة تمثل علامتك التجارية بأفضل صورة">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.web.title' | t"
+      [subtitle]="'svc.web.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-globe" style="color:#2563eb"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.web', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.web', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#2563eb;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebsiteDesignPageComponent {
-  readonly features = [
-    { title: 'تصميم UI/UX احترافي', desc: 'واجهات مستخدم جذابة وسهلة الاستخدام مبنية على أبحاث سلوك المستخدم.' },
-    { title: 'تطوير WordPress & React', desc: 'نختار التقنية الأنسب لمشروعك سواء كانت WordPress أو React أو Angular.' },
-    { title: 'SEO-Ready من البداية', desc: 'بنية موقع محسّنة لمحركات البحث لضمان ظهورك في أعلى النتائج.' },
-    { title: 'تجاوب كامل مع الأجهزة', desc: 'موقعك يبدو مثالياً على الهاتف والتابلت وسطح المكتب.' },
-    { title: 'أمان SSL وحماية متقدمة', desc: 'تشفير كامل وحماية من الاختراق لضمان سلامة موقعك وعملائك.' },
-    { title: 'دعم تقني مجاني 6 أشهر', desc: 'متابعة وصيانة مجانية لمدة 6 أشهر بعد الإطلاق.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

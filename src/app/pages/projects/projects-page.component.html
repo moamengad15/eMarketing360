@@ -1,0 +1,84 @@
+<section class="section-wrapper">
+  <div class="page-container">
+
+    <p class="portfolio-filter-by">{{ 'projects.filterBy' | t }}</p>
+
+    <div class="section-header">
+      <span class="eyebrow">{{ 'projects.eyebrow' | t }}</span>
+      <h2>{{ 'projects.title' | t }}</h2>
+      <p>{{ 'projects.subtitle' | t }}</p>
+    </div>
+
+    <div class="portfolio-filters">
+      <button
+        *ngFor="let f of filters; trackBy: trackByFilterValue"
+        class="filter-btn"
+        [class.active]="activeFilter === f.value"
+        (click)="setFilter(f.value)">
+        {{ f.labelKey | t }} {{ paddedCount(f.value) }}
+      </button>
+    </div>
+
+    <div class="portfolio-grid">
+      <div
+        *ngFor="let item of filteredItems; trackBy: trackById"
+        class="portfolio-card"
+        (click)="openLightbox(item)">
+
+        <div class="portfolio-img-wrap">
+          <img [src]="item.imageUrl" [alt]="item.titleKey | t" loading="lazy" />
+          <img *ngIf="item.hoverImageUrl" [src]="item.hoverImageUrl" [alt]="(item.titleKey | t) + ' hover'" class="portfolio-hover-img" loading="lazy" />
+          <div class="portfolio-overlay">
+            <div class="portfolio-overlay-content">
+              <h4>{{ item.titleKey | t }}</h4>
+              <p>{{ item.categoryKey | t }}</p>
+            </div>
+          </div>
+          <button class="portfolio-expand-btn" (click)="openLightbox(item); $event.stopPropagation()" [attr.aria-label]="'portfolio.expand' | t">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="lightbox-backdrop" *ngIf="activeItem" (click)="closeLightbox()">
+  <div class="lightbox-gallery" (click)="$event.stopPropagation()">
+    <img [src]="activeItem.lightboxImages[currentLbIndex]" [alt]="activeItem.titleKey | t" />
+    <button class="lb-nav-btn lb-nav-prev" (click)="prevImage()" [attr.aria-label]="'portfolio.lbPrev' | t">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button class="lb-nav-btn lb-nav-next" (click)="nextImage()" [attr.aria-label]="'portfolio.lbNext' | t">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+  </div>
+
+  <div class="lightbox-sidebar" (click)="$event.stopPropagation()">
+    <button class="lb-close-btn" (click)="closeLightbox()" [attr.aria-label]="'portfolio.lbClose' | t">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="lb-category">{{ activeItem.categoryKey | t }}</p>
+    <h2 class="lb-title">{{ activeItem.titleKey | t }}</h2>
+    <p class="lb-desc">{{ activeItem.descriptionKey | t }}</p>
+    <div class="lb-meta">
+      <div class="lb-meta-row">
+        <h6>{{ 'portfolio.lbProjectName' | t }}</h6>
+        <p>{{ activeItem.projectNameKey | t }}</p>
+      </div>
+      <div class="lb-meta-row">
+        <h6>{{ 'portfolio.lbProjectType' | t }}</h6>
+        <p>{{ activeItem.projectTypeKey | t }}</p>
+      </div>
+      <div class="lb-meta-row">
+        <h6>{{ 'portfolio.lbPresence' | t }}</h6>
+        <p>{{ activeItem.locationKey | t }}</p>
+      </div>
+    </div>
+    <a [routerLink]="['/projects', activeItem.slug]" class="lb-view-link" (click)="closeLightbox()">
+      {{ 'portfolio.lbView' | t }} <i class="fa-solid fa-arrow-left"></i>
+    </a>
+  </div>
+</div>

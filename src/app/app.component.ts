@@ -7,7 +7,7 @@ import { TranslationService } from './shared/services/translation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  constructor(private ts: TranslationService) {}
+  constructor(public ts: TranslationService) {}
 
   ngOnInit(): void {
     this.ts.init();

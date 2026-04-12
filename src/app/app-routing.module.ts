@@ -12,10 +12,18 @@ import { SeoPageComponent }            from './pages/services/seo/seo-page.compo
 import { BrandIdentityPageComponent }  from './pages/services/brand-identity/brand-identity-page.component';
 import { SocialMediaPageComponent }    from './pages/services/social-media/social-media-page.component';
 import { PhotographyPageComponent }    from './pages/services/photography/photography-page.component';
+import { ProjectsPageComponent }         from './pages/projects/projects-page.component';
+import { ProjectDetailPageComponent }    from './pages/projects/project-detail-page.component';
+import { BlogPageComponent }           from './pages/blog/blog-page.component';
+import { BlogArticlePageComponent }    from './pages/blog/blog-article-page.component';
 
 const routes: Routes = [
   // Home
   { path: '',                          component: HomePageComponent, pathMatch: 'full' },
+  { path: 'projects',                   component: ProjectsPageComponent },
+  { path: 'projects/:slug',             component: ProjectDetailPageComponent },
+  { path: 'blog',                       component: BlogPageComponent },
+  { path: 'blog/:id',                   component: BlogArticlePageComponent },
   // About
   { path: 'about',                     component: AboutPageComponent },
   { path: 'about/why-us',              component: WhyUsPageComponent },

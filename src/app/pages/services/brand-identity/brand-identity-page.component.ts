@@ -4,22 +4,22 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-brand-identity-page',
   template: `
     <app-page-layout
-      eyebrow="خدماتنا"
-      title="تطوير الهويات البصرية"
-      subtitle="هوية تجارية متكاملة تجعل علامتك لا تُنسى">
+      [eyebrow]="'svc.common.eyebrow' | t"
+      [title]="'svc.brand.title' | t"
+      [subtitle]="'svc.brand.subtitle' | t">
       <div class="service-detail-content">
         <div class="service-features-grid">
-          <div class="service-feature-card" *ngFor="let item of features">
+          <div class="service-feature-card" *ngFor="let fk of featureKeys; trackBy: trackByFk">
             <div class="sf-icon"><i class="fa-solid fa-pen-ruler" style="color:#d97706"></i></div>
-            <h3 class="sf-title">{{ item.title }}</h3>
-            <p class="sf-desc">{{ item.desc }}</p>
+            <h3 class="sf-title">{{ feat('svc.brand', fk, 't') | t }}</h3>
+            <p class="sf-desc">{{ feat('svc.brand', fk, 'd') | t }}</p>
           </div>
         </div>
         <div class="service-cta-block" style="background:#d97706;">
           <div class="service-cta-inner">
-            <h2>هل أنت جاهز للبدء؟</h2>
-            <p>تواصل معنا للحصول على عرض سعر مجاني</p>
-            <a href="mailto:info@e-marketing360.com" class="btn btn-white">تواصل معنا</a>
+            <h2>{{ 'svc.common.ctaTitle' | t }}</h2>
+            <p>{{ 'svc.common.ctaDesc' | t }}</p>
+            <a href="mailto:info@e-marketing360.com" class="btn btn-white">{{ 'svc.common.ctaBtn' | t }}</a>
           </div>
         </div>
       </div>
@@ -41,12 +41,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandIdentityPageComponent {
-  readonly features = [
-    { title: 'تصميم الشعار', desc: 'شعار فريد يعبر عن قيم علامتك ويبقى راسخاً في الأذهان.' },
-    { title: 'الدليل البصري Brand Guide', desc: 'كتيب إرشادي شامل للألوان والخطوط والأنماط البصرية.' },
-    { title: 'الهوية الرقمية الكاملة', desc: 'تطبيق الهوية على كل نقاط التواصل الرقمية.' },
-    { title: 'تصميم المطبوعات', desc: 'بطاقات أعمال وأوراق رسمية ومطويات وأكثر.' },
-    { title: 'القوالب والموارد', desc: 'تسليم جميع ملفات التصميم بصيغ متعددة AI وPDF وPNG وSVG.' },
-    { title: 'مراجعات غير محدودة', desc: 'نعمل معك حتى تحصل على هوية تعكس رؤيتك تماماً.' }
-  ];
+  readonly featureKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+
+  feat(prefix: string, fk: string, suffix: 't' | 'd'): string {
+    return `${prefix}.${fk}${suffix}`;
+  }
+
+  trackByFk(_: number, fk: string): string {
+    return fk;
+  }
 }

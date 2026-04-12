@@ -4,9 +4,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-about-page',
   template: `
     <app-page-layout
-      eyebrow="تعرّف علينا"
-      title="من نحن"
-      subtitle="وكالة تسويق إلكتروني متكاملة تساعد الشركات على النمو والتوسع في السوق الرقمي">
+      [eyebrow]="'about.page.eyebrow' | t"
+      [title]="'about.page.title' | t"
+      [subtitle]="'about.page.subtitle' | t">
       <app-about></app-about>
       <section class="section-wrapper section-alt">
         <app-stats></app-stats>

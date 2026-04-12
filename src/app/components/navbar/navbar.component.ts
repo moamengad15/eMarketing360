@@ -5,20 +5,20 @@ import {
   HostListener,
   OnInit,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslationService } from '../../shared/services/translation.service';
 
 export interface NavLink {
-  label: string;
-  route: string;         // Angular route path (e.g. '/about')
-  fragment?: string;     // optional in-page fragment for home-page sections
+  labelKey: string;
+  route: string;
+  fragment?: string;
   children?: NavChild[];
 }
 
 export interface NavChild {
-  label: string;
-  route: string;         // Always a real Angular route for sub-pages
+  labelKey: string;
+  route: string;
 }
 
 @Component({
@@ -28,37 +28,44 @@ export interface NavChild {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
+
   isMenuOpen = false;
-  isSticky    = false;
-  isMobile    = false;
+  isSticky = false;
+  isMobile = false;
   activeSubmenu: string | null = null;
   currentRoute = '/';
   isSearchOpen = false;
-  searchQuery  = '';
+  searchQuery = '';
+
+  // ✅ FIX: email variables (needed by HTML)
+  mailtoInfo: string = 'mailto:info@e-marketing360.com';
+  displayInfoEmail: string = 'info@e-marketing360.com';
 
   readonly navLinks: NavLink[] = [
-    { label: 'الرئيسية',    route: '/' },
+    { labelKey: 'nav.home', route: '/' },
     {
-      label: 'من نحن',      route: '/about',
+      labelKey: 'nav.about',
+      route: '/about',
       children: [
-        { label: 'من نحن',                                              route: '/about' },
-        { label: 'لماذا e-Marketing360 مناسبة لشركات مرحلة النمو؟',   route: '/about/why-us' },
+        { labelKey: 'nav.about', route: '/about' },
+        { labelKey: 'nav.about.why', route: '/about/why-us' },
       ],
     },
     {
-      label: 'خدماتنا',     route: '/services',
+      labelKey: 'nav.services',
+      route: '/services',
       children: [
-        { label: 'تصميم وتطوير مواقع إلكترونية',  route: '/services/website-design' },
-        { label: 'تطوير المتاجر الإلكترونية',      route: '/services/ecommerce'      },
-        { label: 'تحسين محركات البحث (SEO)',        route: '/services/seo'            },
-        { label: 'تطوير الهويات البصرية',           route: '/services/brand-identity' },
-        { label: 'إدارة السوشيال ميديا',            route: '/services/social-media'   },
-        { label: 'خدمات التصوير الإحترافية',        route: '/services/photography'    },
+        { labelKey: 'nav.services.web', route: '/services/website-design' },
+        { labelKey: 'nav.services.ecom', route: '/services/ecommerce' },
+        { labelKey: 'nav.services.seo', route: '/services/seo' },
+        { labelKey: 'nav.services.brand', route: '/services/brand-identity' },
+        { labelKey: 'nav.services.social', route: '/services/social-media' },
+        { labelKey: 'nav.services.photo', route: '/services/photography' },
       ],
     },
-    { label: 'أعمالنا',    route: '/', fragment: 'portfolio' },
-    { label: 'المدونة',    route: '/', fragment: 'blog'      },
-    { label: 'تواصل معنا', route: '/', fragment: 'contact'   },
+    { labelKey: 'nav.portfolio', route: '/projects' },
+    { labelKey: 'nav.blog', route: '/', fragment: 'blog' },
+    { labelKey: 'nav.contact', route: '/', fragment: 'contact' },
   ];
 
   constructor(
@@ -68,46 +75,65 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isMobile    = window.innerWidth <= 960;
-    this.currentRoute = this.router.url;
+    this.isMobile = window.innerWidth <= 960;
+    this.currentRoute = this.router.url.split('#')[0] || '/';
 
-    // Track active route for .active class on nav items
     this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e: any) => {
-        this.currentRoute = e.urlAfterRedirects;
-        this.isMenuOpen   = false;
+      .pipe(filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(e => {
+        this.currentRoute = e.urlAfterRedirects.split('#')[0] || '/';
+        this.isMenuOpen = false;
         this.activeSubmenu = null;
         this.cdr.markForCheck();
       });
   }
 
   @HostListener('window:scroll', [])
-  onScroll(): void { this.isSticky = window.scrollY > 40; }
+  onScroll(): void {
+    this.isSticky = window.scrollY > 40;
+  }
 
   @HostListener('window:resize', [])
-  onResize(): void { this.isMobile = window.innerWidth <= 960; }
+  onResize(): void {
+    this.isMobile = window.innerWidth <= 960;
+  }
 
-  toggleMenu(): void    { this.isMenuOpen = !this.isMenuOpen; }
-  closeMenu(): void     { this.isMenuOpen = false; this.activeSubmenu = null; }
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
+    this.activeSubmenu = null;
+  }
+
   toggleSubmenu(l: string): void {
     this.activeSubmenu = this.activeSubmenu === l ? null : l;
   }
 
-  hasChildren(link: NavLink): boolean { return !!(link.children?.length); }
-  trackByRoute(_: number, l: { route: string }): string { return l.route; }
+  hasChildren(link: NavLink): boolean {
+    return !!(link.children?.length);
+  }
+
+  trackByRoute(_: number, l: { route: string }): string {
+    return l.route;
+  }
+
+  trackByLabelKey(_: number, l: NavLink): string {
+    return l.labelKey;
+  }
 
   isActive(link: NavLink): boolean {
+    if (link.route === '/projects') return this.currentRoute.startsWith('/projects');
     if (link.route === '/') return this.currentRoute === '/';
     return this.currentRoute.startsWith(link.route);
   }
 
-  /** Navigate to a route; if it's the home page with a fragment, scroll after */
   navigate(route: string, fragment?: string): void {
     this.closeMenu();
+
     if (route === '/' && fragment) {
       if (this.currentRoute === '/') {
-        // Already on home — just scroll
         setTimeout(() => {
           document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
@@ -125,12 +151,11 @@ export class NavbarComponent implements OnInit {
 
   toggleSearch(): void {
     this.isSearchOpen = !this.isSearchOpen;
-    if (!this.isSearchOpen) { this.searchQuery = ''; }
+    if (!this.isSearchOpen) this.searchQuery = '';
   }
 
   onSearch(query: string): void {
     if (query.trim()) {
-      // Future: wire to search page/service
       console.log('Search:', query);
     }
   }
@@ -138,5 +163,9 @@ export class NavbarComponent implements OnInit {
   toggleLang(): void {
     this.ts.toggle();
     this.cdr.markForCheck();
+  }
+
+  trackByChildKey(_: number, c: NavChild): string {
+    return c.labelKey;
   }
 }
